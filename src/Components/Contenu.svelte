@@ -35,12 +35,18 @@
         allPokemon.push(objPokemonFull);
       })
       .then(() => {
-        tableauFin = allPokemon.slice(0, 30);
+        tableauFin = allPokemon.slice(0, 50);
+        allPokemon = allPokemon;
       });
+  }
+
+  function goRecherche(e) {
+    let contenuRecherche = e.detail.txt;
+    tableauFin = allPokemon.filter(el=> el.name.includes(contenuRecherche));
   }
 </script>
 
-<BarreRecherche />
+<BarreRecherche on:recherche-poke={goRecherche} on:tout-poke={goRecherche} />
 <div class="contenu">
   {#each tableauFin as pokemon (uuidv4())}
     <Carte name={pokemon.name} pic={pokemon.pic} />
